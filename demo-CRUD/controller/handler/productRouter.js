@@ -1,5 +1,5 @@
 const fs = require('fs');
-const productServices = require('C:\\Users\\Nitro\\WebstormProjects\\MD3-Demo-Connect-Database\\demoCRUD\\servicer\\productsServices.js');
+const productServices = require('C:\\Users\\Nitro\\WebstormProjects\\MD3-Demo-Connect-Database\\ChuaBai\\servicer\\productsServices.js');
 const qs = require('qs')
 
 class ProductRouting {
