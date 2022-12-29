@@ -5,7 +5,7 @@ class ProductsServices {
     static getProducts() {
         let connection = Connection.getConnection();
         return new Promise((resolve, reject) => {
-            connection.query('select * from  product', (err, products) => {
+            connection.query('select * from product p join category c on p.idCategory = c.idCategory', (err, products) => {
                 if (err) {
                     reject(err);
                 } else {
@@ -18,9 +18,9 @@ class ProductsServices {
     static saveProduct(product) {
         let connection = Connection.getConnection();
         return new Promise((resolve, reject) => {
-            connection.query(`insert into product(name, price, description)
+            connection.query(`insert into product(name, price, description,idCategory)
                               values ('${product.name}', ${product.price}, '${product.description}
-                                      ') `, (err, products) => {
+                                      ',${product.idCategory}) `, (err, products) => {
                 if (err) {
                     reject(err);
                 } else {

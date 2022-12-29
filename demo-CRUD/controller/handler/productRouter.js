@@ -1,7 +1,7 @@
 const fs = require('fs');
 const productServices = require('C:\\Users\\Nitro\\WebstormProjects\\MD3-Demo-Connect-Database\\ChuaBai\\servicer\\productsServices.js');
 const qs = require('qs')
-
+const categoryService = require('C:\\Users\\Nitro\\WebstormProjects\\MD3-Demo-Connect-Database\\demo-CRUD\\servicer\\categoryService.js')
 class ProductRouting {
     static getHtmlProducts(products, indexHtml) {
         let tbody = '';
@@ -11,8 +11,9 @@ class ProductRouting {
                 <th scope="row">${index}</th>
                 <td>${product.name}</td>
                 <td>${product.price}</td>
+                <td>${product.nameCategory}</td>
                 <td><a href="product/edit/${product.id}" class="btn btn-danger">Edit</a></td>
-                <td><a href="product/delete/${product.id} "class="btn btn-danger">Delete</a></td>
+                <td><a href="product/delete/${product.id}" class="btn btn-danger">Delete</a></td>
             </tr>`
         });
         indexHtml = indexHtml.replace('{products}', tbody);
@@ -65,6 +66,15 @@ class ProductRouting {
                 if (err) {
                     console.log(err);
                 } else {
+                    let categories = categoryService.findAll()
+                    let options = ''
+                    categories.map(category =>{
+                        console.log(category)
+                        options += `
+                        <option value=${category.idCategory}>${category.nameCategory}</option>
+                         `
+                    })
+                    indexHtml = indexHtml.replace('{categories}', options)
 
                     res.writeHead(200, 'text/html');
                     res.write(indexHtml)

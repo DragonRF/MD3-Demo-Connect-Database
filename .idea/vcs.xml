@@ -2,10 +2,14 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/BaiTapDataBase" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/BaiTapMD3" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/ChuaBai" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/MD3-Demo-Connect-Database" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Module3-C09" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Module3-C09/demo_connect_database/src/BaiTapMD3" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/demo-CRUD" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/demo-CRUD/BaiTapDataBase" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/demoCRUD" vcs="Git" />
   </component>
 </project>
