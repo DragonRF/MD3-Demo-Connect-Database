@@ -1,0 +1,19 @@
+{
+  "name": "baitap2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "formidable": "^2.1.1",
+    "mysql": "^2.18.1",
+    "node": "^19.3.0",
+    "qs": "^6.11.0",
+    "sql": "^0.78.0"
+  }
+}
