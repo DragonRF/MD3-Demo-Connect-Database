@@ -90,11 +90,19 @@ class ProductRouting {
                     console.log(err)
                 } else {
                     let product = await ProductService.finById(id)
+                    console.log(product)
                     edit = edit.replace('{id}', id)
                     edit = edit.replace('{name}', product[0].name);
                     edit = edit.replace('{price}', product[0].price);
                     edit = edit.replace('{description}', product[0].description);
                     console.log(product)
+                    let grader = await GradeService.getProducts();
+                    let options = ''
+                    grader.map(grade =>{
+                        options +=`
+                            <option value=${grade.id}>${grade.graded}</option>`
+                    })
+                    edit = edit.replace('{grades}',options)
 
                     res.writeHead(200, 'text/html');
                     res.write(edit);

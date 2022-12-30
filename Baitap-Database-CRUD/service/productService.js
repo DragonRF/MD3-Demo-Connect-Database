@@ -5,7 +5,7 @@ class ProductService {
     static getProducts() {
         let connection = Connection.getConnection();
         return new Promise((resolve, reject) => {
-            connection.query(`select * from products p join grade t on p.idGrade = t.id`,(err, product) => {
+            connection.query(`select p.id ,p.price, p.name , p.image , p.description, p.idGrade, t.graded  from products p join grade t on p.idGrade = t.id`,(err, product) => {
                 if (err) {
                     reject(err)
                 } else {
