@@ -1,5 +1,6 @@
 const fs = require('fs');
 const ProductService = require('../../service/productService')
+const GradeService = require('../../service/gradeService')
 const qs = require('qs');
 const formidable = require('formidable');
 const path = require("path");
@@ -14,6 +15,7 @@ class ProductRouting {
             <td><img src="/public/${product.image}" alt="Khong Co" style="width: auto; height: 50px"></td>
             <td>${product.price}</td>
             <td>${product.description}</td>
+            <td>${product.graded}</td>
             <td><a href="/product/edit/${product.id}" type="button" class="btn btn-primary">Edit</a></td> 
             <td><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop${product.id}">Delete</button>
 <div class="modal fade" id="staticBackdrop${product.id}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -88,10 +90,12 @@ class ProductRouting {
                     console.log(err)
                 } else {
                     let product = await ProductService.finById(id)
+                    edit = edit.replace('{id}', id)
                     edit = edit.replace('{name}', product[0].name);
                     edit = edit.replace('{price}', product[0].price);
                     edit = edit.replace('{description}', product[0].description);
-                    edit = edit.replace('{id}', id)
+                    console.log(product)
+
                     res.writeHead(200, 'text/html');
                     res.write(edit);
                     res.end();
@@ -151,12 +155,20 @@ class ProductRouting {
     }
 
     static showCreate(req, res) {
-        if (req.method === 'GET') {
-            fs.readFile('./views/product/create.html', 'utf-8', (err, createHtml) => {
+        if ( req.method === 'GET') {
+            fs.readFile('./views/product/create.html', 'utf-8',  async (err, createHtml) => {
                 if (err) {
                     console.log(err)
                 } else {
                     res.writeHead(200, 'text/html');
+                    let grades = await GradeService.getProducts();
+                    let options = ''
+                    grades.map(grade =>{
+                        options +=`
+                            <option value=${grade.id}>${grade.graded}</option>`
+                    })
+                    createHtml = createHtml.replace('{grades}',options)
+                    console.log(grades)
                     res.write(createHtml);
                     res.end();
                 }
@@ -206,6 +218,7 @@ class ProductRouting {
                         });
                     }
                 })
+                console.log(files.img.originalFilename)
                 await ProductService.editImage(files.img.originalFilename, id);
                 res.writeHead(301, {'location': '/product/home'})
                 res.end();

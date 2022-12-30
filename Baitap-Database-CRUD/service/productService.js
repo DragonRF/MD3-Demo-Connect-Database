@@ -5,7 +5,7 @@ class ProductService {
     static getProducts() {
         let connection = Connection.getConnection();
         return new Promise((resolve, reject) => {
-            connection.query(`SELECT * FROM products`,(err, product) => {
+            connection.query(`select * from products p join grade t on p.idGrade = t.id`,(err, product) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -29,7 +29,7 @@ class ProductService {
     static editProduct(product, id) {
         let connection = Connection.getConnection();
         return new Promise((resolve, reject) => {
-            connection.query(`UPDATE products SET name = '${product.name}', image = '${product.image}',price = ${product.price},\`description\` = '${product.description}'  WHERE id = ${id}`,(err, product) => {
+            connection.query(`UPDATE products SET name = '${product.name}', image = '${product.image}',price = ${product.price},\`description\` = '${product.description}', idGrade = ${product.grade}  WHERE id = ${id}`,(err, product) => {
                 if (err) {
                     reject(err)
                 } else {
@@ -41,7 +41,7 @@ class ProductService {
     static createProduct(product) {
         let connection = Connection.getConnection();
         return new Promise((resolve, reject) => {
-            connection.query(`INSERT INTO products(name, image, price, \`description\`) VALUE ('${product.name}','${product.image}',${product.price},'${product.description}')`,(err, data) => {
+            connection.query(`INSERT INTO products(name, image, price, description,idGrade) VALUE ('${product.name}','abc',${product.price},'${product.description}',${product.grade})`,(err, data) => {
                 if (err) {
                     reject(err)
                 } else {
